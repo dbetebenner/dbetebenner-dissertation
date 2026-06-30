@@ -1,4 +1,4 @@
-# {{thesis.workingTitle}}
+# IRTc: Copula-Based Item Response Theory
 
 > Your AI-native dissertation environment, set up for you by [dissertation.ai](https://dissertation.ai).
 
@@ -9,8 +9,8 @@ This repository is your dissertation's home: where you write your chapters, wher
 **1. Get a copy on your computer.**
 
 ```sh
-git clone --recursive https://github.com/{{user.githubUsername}}/{{metadata.name}}.git
-cd {{metadata.name}}
+git clone --recursive https://github.com/dbetebenner/dbetebenner-dissertation.git
+cd dbetebenner-dissertation
 ```
 
 The `--recursive` flag also pulls in the linked R package that holds your chapters. *If your dissertation has no R package, you can clone normally (without `--recursive`) — your chapters live right here in `thesis/` instead (see step 3).*
@@ -24,7 +24,7 @@ The `--recursive` flag also pulls in the linked R package that holds your chapte
 
 **3. Find where your writing lives.** Each chapter is one file.
 
-- **If you have an R package** (most computational dissertations): your manuscript travels with it as a linked sub-repository (Git calls this a *submodule*). Chapters are at `packages/r-packages/{{rPackage.name}}/ui/www/chapters/*.qmd`.
+- **If you have an R package** (most computational dissertations): your manuscript travels with it as a linked sub-repository (Git calls this a *submodule*). Chapters are at `packages/r-packages/unknown-rpkg/ui/www/chapters/*.qmd`.
 - **If you don't** (a content-only dissertation): your manuscript lives right here, at `thesis/chapters/*.qmd`. No submodule.
 
 **4. Write + preview.** Edit a chapter, then from the directory that holds `_quarto.yml` (your R package's `ui/www/`, or `thesis/`):
@@ -38,7 +38,7 @@ quarto render --to pdf   # build the PDF locally
 
 ### The submodule mental model (R-package dissertations only)
 
-Your R package is its *own* Git repository; this dissertation repo merely **points** at a specific commit of it. So: edit + commit your chapters **inside the package** (`packages/r-packages/{{rPackage.name}}/`), then come back here and commit the updated pointer. `git clone --recursive` and `git submodule update --init --recursive` keep the two in step. (Content-only dissertations have none of this — everything is in this one repo.)
+Your R package is its *own* Git repository; this dissertation repo merely **points** at a specific commit of it. So: edit + commit your chapters **inside the package** (`packages/r-packages/unknown-rpkg/`), then come back here and commit the updated pointer. `git clone --recursive` and `git submodule update --init --recursive` keep the two in step. (Content-only dissertations have none of this — everything is in this one repo.)
 
 ### Common problems
 
@@ -50,14 +50,14 @@ Your R package is its *own* Git repository; this dissertation repo merely **poin
 
 | What you want to change | Where |
 |---|---|
-Paths below are shown for the **R-package** layout. For a **content-only** dissertation, drop the `packages/r-packages/{{rPackage.name}}/ui/www/` prefix and read `thesis/` instead (e.g. `thesis/chapters/*.qmd`, `thesis/references.bib`, `thesis/thesis.cls`).
+Paths below are shown for the **R-package** layout. For a **content-only** dissertation, drop the `packages/r-packages/unknown-rpkg/ui/www/` prefix and read `thesis/` instead (e.g. `thesis/chapters/*.qmd`, `thesis/references.bib`, `thesis/thesis.cls`).
 
 | What you want to change | Where (R-package layout) |
 |---|---|
-| Thesis chapter content | `packages/r-packages/{{rPackage.name}}/ui/www/chapters/*.qmd` |
-| Bibliography | `packages/r-packages/{{rPackage.name}}/ui/www/references.bib` |
-| Thesis class file (formatting) | `packages/r-packages/{{rPackage.name}}/ui/www/thesis.cls` (or see `THESIS-CLS-README.md`) |
-| Methodology R code | `packages/r-packages/{{rPackage.name}}/R/` (R-package dissertations only) |
+| Thesis chapter content | `packages/r-packages/unknown-rpkg/ui/www/chapters/*.qmd` |
+| Bibliography | `packages/r-packages/unknown-rpkg/ui/www/references.bib` |
+| Thesis class file (formatting) | `packages/r-packages/unknown-rpkg/ui/www/thesis.cls` (or see `THESIS-CLS-README.md`) |
+| Methodology R code | `packages/r-packages/unknown-rpkg/R/` (R-package dissertations only) |
 | App landing page | `src/app/page.tsx` |
 | Dissertation metadata (title, committee, ...) | `dataimago-spec.yaml` |
 

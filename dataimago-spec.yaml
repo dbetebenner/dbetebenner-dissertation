@@ -1,126 +1,229 @@
-# dataimago-spec.yaml — the contract between dissertation.ai and dataimago::ai().
-#
-# This file is the COMPLETE representation of your dissertation. Edit it any time
-# to refine your dissertation's configuration; the `generate.yml` CI workflow
-# re-runs `dataimago::ai()` on every push to this file.
-#
-# Full schema: dissertation-ai/docs/iteration-3-d-2-design.md §3
-# Down-the-road logistical fields (IRB, funding, embargo, deadlines, co-authorship):
-#   per the design principle "spec accommodates, interview asks the critical subset"
-#   these fields are optional and default to empty. Fill them in over time.
-#
-# THIS FILE IS A PLACEHOLDER. It gets overwritten at provision time with your
-# actual answers from the dissertation.ai onboarding interview.
-
 apiVersion: dataimago.ai/v1alpha1
 kind: ProjectSpec
-
 metadata:
-  name: PLACEHOLDER-dissertation
+  name: dbetebenner-dissertation
   vertical: dissertation
   generatedBy: dissertation-ai
-  generatedAt: "2026-01-01T00:00:00Z"
+  generatedAt: "2026-06-30T13:03:37.962Z"
   specVersion: 1
-
 user:
-  name: "Your Name"
-  email: "you@institution.edu"
-  githubUsername: "your-github-username"
-
+  name: Damian Betebenner
+  email: dbetebenner@gmail.com
+  githubUsername: dbetebenner
 project:
-  title: "Your dissertation working title"
-  description: "One-paragraph description of your dissertation."
-
+  title: "IRTc: Copula-Based Item Response Theory"
+  description: >-
+    Conventional IRT treats local independence as the default assumption: conditional on ability,
+    item responses factorize into a product of item-level probabilities.  The founding conjecture of
+    this project — treated strictly as a hypothesis, not evidence — is that if Lord-era IRT had had
+    access to Sklar's theorem, copula theory, and modern compute, parts of IRT might have developed
+    as a dependence-modeling framework in which local independence is simply the independence-copula
+    case rather than the default.  I come to this question after decades of work in educational
+    measurement (student growth percentiles, large-scale assessment), where local dependence,
+    testlets, and multidimensionality are persistent practical realities that conventional models
+    treat as nuisances.
 source:
-  case: extension                # 'extension' | 'retrofit' | 'no-r'
-  rPackage:
-    name: PLACEHOLDER-thesis-rpkg
-    submoduleUrl: "https://github.com/your-github-username/PLACEHOLDER-thesis-rpkg"
-    submodulePath: "packages/r-packages/PLACEHOLDER-thesis-rpkg"
-    quartoRoot: "ui/www"
-
+  case: no-r
+  rPackage: null
 vertical:
   dissertation:
     institution:
-      name: "Your University"
-      degreeProgram: "Ph.D. Your Program"
+      name: dataimago
+      degreeProgram: Independent research — educational measurement & psychometrics (dataimago)
       department: ""
       expectedDefenseYear: null
-      # D.2.1.h down-the-road fields (optional; fill in over time):
       submissionDeadline: ""
       archiveUrl: ""
       administratorContact:
         name: ""
         email: ""
         role: ""
-
     advisors:
       chair:
-        name: "Dr. Your Chair"
-      committee: []
-
+        name: TBD — external advisor
+      committee:
+        - name: Claude (Anthropic) — AI research collaborator
+          institution: Anthropic
     timeline:
       proposalDate: ""
       defenseDate: ""
       submissionDate: ""
-
     thesis:
-      workingTitle: "Your dissertation working title"
+      workingTitle: "IRTc: Copula-Based Item Response Theory"
       workingSubtitle: ""
-      researchQuestion: "What is the central question your dissertation answers?"
-      background: "What brought you to this topic?"
-      contribution: "What is the novel contribution?"
+      researchQuestion: >-
+        Can a copula-first formulation of Item Response Theory (IRTc) recover conventional
+        local-independence IRT as the independence-copula special case — and on which real
+        item-response datasets does separating item-response marginals from dependence structures
+        improve held-out prediction, model fit, and diagnostic interpretability relative to
+        Rasch/2PL/3PL/GRM/MIRT baselines?
+      background: >-
+        Conventional IRT treats local independence as the default assumption: conditional on
+        ability, item responses factorize into a product of item-level probabilities. The founding
+        conjecture of this project — treated strictly as a hypothesis, not evidence — is that if
+        Lord-era IRT had had access to Sklar's theorem, copula theory, and modern compute, parts of
+        IRT might have developed as a dependence-modeling framework in which local independence is
+        simply the independence-copula case rather than the default. I come to this question after
+        decades of work in educational measurement (student growth percentiles, large-scale
+        assessment), where local dependence, testlets, and multidimensionality are persistent
+        practical realities that conventional models treat as nuisances. This dissertation is also
+        deliberately a second experiment: it is developed inside dataimago, an AI-native research
+        framework, to test whether an auto-research machine — citation-audited literature work,
+        frozen evaluation rules, agent-run experiment loops — can carry a genuine methodological
+        research program from conjecture to falsifiable, reproducible findings.
+      contribution: >-
+        Three intended contributions. (1) Theory: a formally specified IRTc model family that
+        separates item-response marginals from dependence structures, states identifiability
+        assumptions for discrete (dichotomous/ordinal) responses explicitly, and characterizes
+        exactly which conventional IRT models are special cases, approximations, or mere analogies
+        of copula constructions. (2) Empirics: fair, reproducible benchmarks of IRTc against
+        conventional baselines on simulated data and Item Response Warehouse (IRW) datasets —
+        held-out prediction, limited-information fit, residual-dependence diagnostics, parameter
+        stability, and sensitivity analyses — with failure cases documented as first-class results.
+        (3) Infrastructure: a reproducible research web application (the dataimago research machine)
+        in which every material claim is citation-backed via a claim ledger, every experiment is
+        registered before it runs, and auto-research loops operate only on declared editable
+        surfaces under frozen evaluation rules.
       chapters:
-        - { id: introduction, title: "Introduction" }
-        - { id: literature, title: "Literature Review" }
-        - { id: methodology, title: "Methodology" }
-        - { id: results, title: "Results" }
-        - { id: discussion, title: "Discussion" }
-        - { id: conclusion, title: "Conclusion" }
+        - id: introduction
+          title: Introduction
+        - id: historical-framing
+          title: "Historical Framing: From Empirical Curves and Normal Ogives to Dependence Modeling"
+        - id: conventional-irt-assumptions
+          title: Conventional IRT and the Local Independence Assumption
+        - id: copulas-and-sklar
+          title: Copulas, Sklar's Theorem, and Dependence Structures
+        - id: the-discrete-response-problem
+          title: The Discrete Response Problem
+        - id: irtc-model-family
+          title: The IRTc Model Family and Conventional IRT as Special Cases
+        - id: estimation-and-simulation
+          title: Estimation Strategies and Simulation Studies
+        - id: irw-benchmarks-and-results
+          title: IRW Benchmark Datasets and Results
+        - id: diagnostics-sensitivity-limitations
+          title: Diagnostics, Sensitivity Analyses, and Limitations
       methodology:
-        approach: computational      # quantitative | qualitative | mixed-methods | computational
-        summary: "Brief description of your methodology."
+        approach: computational
+        summary: >-
+          A laddered computational program. Level 0: reproducible conventional baselines (Rasch/1PL,
+          2PL, 3PL, GRM, GPCM, MIRT/bi-factor) via mirt and TAM. Level 1: an IRTc product-copula
+          wrapper that must match baselines within numerical tolerance. Level 2: one-factor copula
+          models (Gaussian, t, Frank, Clayton/Gumbel and rotations) via FactorCopula, with
+          simulation-based parameter recovery. Levels 3–4: local-dependence and structured
+          multidimensional copula models (testlet copulas, vines, bi-factor/second-order
+          constructions). Evaluation uses held-out log loss and Brier score, limited-information fit
+          (M2), Q3-style residual dependence, calibration by ability strata, parameter-recovery
+          RMSE, and compute cost — under pre-registered experiment manifests with frozen metrics,
+          immutable splits, and claim audits before any superiority statement.
       bibliography:
         file: references.bib
-        citationStyle: apa-7         # apa-7 | chicago | mla | harvard | custom
+        citationStyle: apa-7
       classFile:
-        type: shipped                # shipped | vendored | generated
+        type: shipped
         path: thesis.cls
         guidelinesDocuments: []
-      # D.2.1.h down-the-road fields:
       embargo:
-        type: none                   # none | one-year | two-year | custom
+        type: none
         durationMonths: 0
         reason: ""
       coauthors: []
-
     context:
-      researchDocuments: []
+      researchDocuments:
+        - filename: irw-behavior-research-methods-2025.pdf
+          path: raw/research/irw-behavior-research-methods-2025.pdf
+          title: "The Item Response Warehouse (IRW): a large standardized repository of item response data"
+          author: IRW team (Behavior Research Methods)
+          year: "2025"
+          description: >-
+            Describes IRW v28.2: 900+ harmonized open item-response datasets, 2B+ responses, website
+            and API access. The project's primary source of real benchmark data.
+          relationship: building-on
+          sourceUrl: >-
+            https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/raw/research/irw-behavior-research-methods-2025.pdf
+        - filename: kadhem-nikoloulopoulos-psychometrika.pdf
+          path: raw/research/kadhem-nikoloulopoulos-psychometrika.pdf
+          title: Bi-factor and second-order copula models for item response data
+          author: Kadhem & Nikoloulopoulos
+          year: "2021"
+          description: >-
+            Factor-copula item-response models with asymmetric and tail dependence beyond
+            discretized multivariate normal — the closest existing work to the IRTc Levels 2–4
+            ladder.
+          relationship: building-on
+          sourceUrl: >-
+            https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/raw/research/kadhem-nikoloulopoulos-psychometrika.pdf
+        - filename: smith-khaled-jasa-2012.pdf
+          path: raw/research/smith-khaled-jasa-2012.pdf
+          title: Estimation of copula models with discrete margins via Bayesian data augmentation
+          author: Smith & Khaled (JASA)
+          year: "2012"
+          description: >-
+            Core caution for the discrete-response problem: copula estimation difficulty beyond the
+            bivariate case and the Bayesian augmentation resolution IRTc must engage with.
+          relationship: building-on
+          sourceUrl: >-
+            https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/raw/research/smith-khaled-jasa-2012.pdf
       advisorWritings: []
       styleExemplars: []
-      background: []
-      additionalNotes: ""
-
-    rEcosystem: []                   # tidyverse | data-table | collapse | base | stan | tidymodels | shiny | targets
-
-    # D.2.1.h down-the-road sections:
+      background:
+        - filename: IRTc.md
+          path: raw/background/IRTc.md
+          title: IRTc Auto-Research Blueprint for dataimago
+          description: >-
+            The project charter: mission, model ladder (Levels 0–5), work packages WP1–WP6,
+            claim-ledger and anti-hallucination protocol, experiment registry, agent roles,
+            milestones M0–M5, and acceptance criteria. The generated repo's AI seeds the research
+            wiki from this document.
+          sourceUrl: https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/raw/background/IRTc.md
+        - filename: factorcopula-package-docs.pdf
+          path: raw/background/factorcopula-package-docs.pdf
+          title: "FactorCopula: factor, bi-factor, second-order, and factor-tree copula models (CRAN)"
+          description: >-
+            Implementation reference for Levels 2–4: estimation, tail-dependence/asymmetry
+            diagnostics, model selection, and M2 goodness-of-fit for structured copula models.
+            Software docs support capability claims only, not statistical truth.
+          sourceUrl: >-
+            https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/raw/background/factorcopula-package-docs.pdf
+      additionalNotes: >-
+        Dual-purpose project. (1) This dissertation develops IRTc — a copula-first formulation of
+        Item Response Theory — under the research charter in the IRTc Auto-Research Blueprint (to be
+        committed at raw/background/IRTc.md in this repo). The founding Lord-era counterfactual is a
+        hypothesis and a generator of research questions, never evidence; no claim of IRTc
+        superiority is permitted without specified response scale, margin definition,
+        identifiability conditions, estimation procedure, and audited empirical support. (2) The
+        project is simultaneously the first end-to-end stress test of the dataimago research machine
+        itself: citation-backed claim ledger, registered experiments with frozen metrics and
+        immutable splits, auto-research loops restricted to declared editable surfaces, and
+        reproducible Quarto reporting. Findings about the framework feed back into dataimago;
+        findings about IRTc feed the dissertation. Milestones M0–M5 from the blueprint execute
+        inside this generated repository.
+    rEcosystem:
+      - stan
+      - tidyverse
+      - data-table
+      - targets
     compliance:
       irb:
-        status: not-required         # pending | approved | exempt | not-required
+        status: not-required
         number: ""
         expirationDate: ""
         link: ""
       dua: []
     funding: []
-
 features:
   quartoBuild: true
   thesisPdf: true
   mcpTools: true
   aiContext: true
   apiScaffolding: true
-
 generator:
   rpkgVersion: ">=0.5.0"
   designVersion: ">=2.0.0"
-  outputDir: "."
+  outputDir: .
+  staticExport: full
+aiAgent:
+  skillBundle: true
+  skillMode: merge-seeded
+  includeWikiResources: true
+  includePrototypeFunctions: false

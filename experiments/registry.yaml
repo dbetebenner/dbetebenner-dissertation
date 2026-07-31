@@ -1,0 +1,5 @@
+# IRTc experiment registry — protocol: wiki/experiments/registry-protocol.md (charter §16).
+# Every experiment is registered here BEFORE it runs; no post-hoc entries.
+# Run artifacts land under experiments/runs/<run_id>/.
+
+experiments: []

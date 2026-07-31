@@ -1,0 +1,39 @@
+# IRTc claim ledger — schema and rules: wiki/methods/claim-ledger-protocol.md (charter §15).
+# Source IDs resolve in research/literature/bibliography.bib.
+# Seeded at M0 with the founding conjecture, typed per charter §21 task 2.
+
+claims:
+  - claim_id: C0001
+    claim_text: >-
+      If Lord-era IRT had access to Sklar's theorem, copula theory, and modern compute,
+      some of IRT might have developed as a dependence-modeling framework in which local
+      independence is the independence-copula case rather than the default assumption.
+    claim_type: hypothesis
+    source_ids: []
+    source_quality: user_context
+    scope: history
+    risk_level: high
+    verified_by: null
+    verification_date: null
+    notes: >-
+      The founding conjecture (charter §1, §4). A generator of research questions, never
+      evidence. May not be cited as support for any IRTc superiority claim; such claims
+      additionally require response scale, margin definition, identifiability conditions,
+      estimation procedure, and audited empirical support (charter §4.2).
+
+  - claim_id: C0002
+    claim_text: >-
+      Sklar's theorem guarantees a unique copula only under continuous marginals; for
+      dichotomous/ordinal item responses the linking copula is not unique, so
+      continuous-Sklar uniqueness arguments do not transfer to observed item-response data.
+    claim_type: established
+    source_ids: [S0008-smith-khaled-2012]
+    source_quality: peer_reviewed
+    scope: theory
+    risk_level: medium
+    verified_by: null
+    verification_date: null
+    notes: >-
+      Anchors wiki/theory/discrete-copula-cautions.md. Verification pass (WP1 auditor)
+      still owed before this appears in any release report; additional primary sources
+      (Sklar, Joe, Nelsen, Genest & Nešlehová) to be added during the literature review.

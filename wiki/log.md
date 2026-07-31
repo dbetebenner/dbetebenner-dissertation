@@ -1,5 +1,17 @@
 # Activity log — newest first
 
+## 2026-07-31 — M2: existing copula reproduction
+
+- The documented FactorCopula PE one-factor example reproduces in-test (loglik
+  −151.9777, Joe/Gumbel dependence parameters within 1e-2 of captured reference
+  values) — ledgered as C0003 (implementation capability, re-verified on every CI run).
+- `fit_copula_1f()` (irtc `494a4a5`): ordinal one-factor copula fits for
+  single-parameter families, returning the standardized model result; honest
+  convergence proxy documented (mle1factor exposes no diagnostic).
+- Seeded Gumbel recovery: max abs error 0.27 at n=500 (0.6 smoke bound in tests).
+- Next: Level-1 product-copula wrapper with its numerical-tolerance equivalence test
+  (the deferred M1 optional), then M3 (IRW ingestion — needs Redivis auth).
+
 ## 2026-07-31 — M1 core: simulators, baselines, model-result schema
 
 - Test-first in the irtc package (irtc `b92a5d0`): `simulate_2pl()` and `simulate_grm()`

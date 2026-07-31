@@ -37,3 +37,22 @@ claims:
       Anchors wiki/theory/discrete-copula-cautions.md. Verification pass (WP1 auditor)
       still owed before this appears in any release report; additional primary sources
       (Sklar, Joe, Nelsen, Genest & Nešlehová) to be added during the literature review.
+
+  - claim_id: C0003
+    claim_text: >-
+      The FactorCopula package's documented PE one-factor example (mle1factor with
+      copF1 = joe/joe/rjoe/joe/gum) reproduces on this project's toolchain with
+      log-likelihood -151.9777 and the documented dependence-parameter estimates,
+      and simulated one-factor Gumbel data (r1factor, n=500, 5 items, 3 categories,
+      theta=2) is recovered by mle1factor with max absolute error 0.27.
+    claim_type: established
+    source_ids: [S0004-factorcopula-cran]
+    source_quality: software_docs
+    scope: implementation
+    risk_level: low
+    verified_by: claude-fable-5-m2
+    verification_date: 2026-07-31
+    notes: >-
+      Capability claim only (software docs support capability, never statistical
+      truth). Continuously re-verified: the reproduction and recovery run as tests
+      in tests/testthat/test-copula-1f.R on every CI push.

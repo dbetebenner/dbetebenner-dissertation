@@ -1,5 +1,20 @@
 # Activity log — newest first
 
+## 2026-07-31 — M1 core: simulators, baselines, model-result schema
+
+- Test-first in the irtc package (irtc `b92a5d0`): `simulate_2pl()` and `simulate_grm()`
+  (seeded, provenance-carrying, ordered GRM thresholds), `fit_baseline()` wrapping mirt
+  for Rasch/2PL/GRM, and the WP3 model-result schema v1 (`new_model_result()` with
+  validation, lossless JSON round-trip, convergence surfaced loudly in print).
+- 83 tests: structure, seed reproducibility, input validation, binary/ordinal mismatch
+  guards, smoke-level parameter recovery (difficulty r > 0.9; pooled GRM thresholds
+  r > 0.9). `R CMD check`: 2 pre-existing template NOTEs, no warnings/errors.
+- mirt added to Suggests. The optional product-copula equivalence wrapper is deferred to
+  Level-1 work (it is the Level-1 deliverable itself, with its numerical-tolerance
+  acceptance test).
+- Next: M2 — FactorCopula smoke tests + reproduction of a documented factor-copula
+  example; M1 recovery *study* (beyond smoke level) folds into the WP5 benchmark design.
+
 ## 2026-07-31 — M0 complete
 
 - Thesis restructured to the spec's nine chapters (irtc `9d309a0`); front/back matter,

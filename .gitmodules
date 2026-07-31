@@ -1,0 +1,3 @@
+[submodule "packages/r-packages/irtc"]
+	path = packages/r-packages/irtc
+	url = https://github.com/dbetebenner/irtc.git

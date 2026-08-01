@@ -1,5 +1,27 @@
 # Activity log — newest first
 
+## 2026-08-01 — M3 complete: IRW ingestion live; both model classes ran on real data
+
+- Redivis auth verified (scoped read token per the new secret-hygiene discipline);
+  2,530 IRW tables visible. Tiered, license-clean (all CC BY 4.0) selection:
+  **A** `much_tte_2025_matrixreasoning` (1,243×10 after wave-1 filter, fetched),
+  **B** `tma` (5,399×50, fetched), **C** `enem_2019_1mil_lc` (1M×40,
+  metadata-only card — fetch deferred to the M4 subsampling plan; its
+  `booklet`/`position` variables make it the natural local-dependence dataset).
+- WP4 discipline held: three data cards, manifest rows with verified sha256 hashes
+  (one transcription error caught by recomputation — hashes are copied from tool
+  output, never retyped), fixed person-level 80/20 splits under recorded seeds,
+  source bibtex captured via `irw_save_bibtex` (Much et al. 2025; Taylor 1953;
+  ENEM). Preprocessing recorded: irw wave-1 + density-threshold filters.
+- `fit_copula_1f` now supports **binary** items (single cutpoint; BVN recovers
+  normal-ogive behavior) — guard relaxed with tests after probing mle1factor on
+  real binary data.
+- **M3 done-when met**: on tier-A complete cases (1,225×10), `fit_baseline(2pl)`
+  logLik −4701.52 (20 par) and `fit_copula_1f(bvn)` logLik −4705.55 (10 par);
+  AIC 9443.0 vs 9431.1. The half-parameter near-tie is recorded as a
+  **suggestive, unregistered observation only** — M4's registered, held-out
+  benchmarks exist to test it. No superiority claim is made or permitted here.
+
 ## 2026-08-01 — M3 opened: IRW access route documented, data zones scaffolded
 
 - Access route verified and documented ([data/irw-access.md](data/irw-access.md)):

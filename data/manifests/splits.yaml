@@ -1,5 +1,19 @@
 # Split manifest — reproducible train/validation/test definitions (charter WP4).
-# Split level (person vs person-response cell) is declared per split; splits are
-# frozen surfaces during registered experiments and never change once used.
+# Person-level splits; frozen surfaces during registered experiments.
 
-splits: []
+splits:
+  - split_id: much_tte_2025_matrixreasoning_p80
+    dataset_id: much_tte_2025_matrixreasoning
+    level: person
+    scheme: "80/20 train/test, sample.int under seed"
+    seed: 20260801
+    file: data/gold/much_tte_2025_matrixreasoning_split.csv
+    file_hash: "40e7b2a6e5a5a25014f09565c2f6227a9640a1575ca614eb2fe29cd5eefe8c43"
+
+  - split_id: tma_p80
+    dataset_id: tma
+    level: person
+    scheme: "80/20 train/test, sample.int under seed"
+    seed: 20260802
+    file: data/gold/tma_split.csv
+    file_hash: "74c3573255e7f017f404d1e84023b4697dd0819d7fb8a62c80c62e21798d41b5"

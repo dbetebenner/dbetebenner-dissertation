@@ -1,5 +1,42 @@
 # Dataset manifest — every dataset the pipeline touches, with provenance and
 # hashes (charter WP4). A dataset appears here BEFORE any model sees it.
 # Tiers: A = smoke-test, B = primary benchmark, C = stress-test (charter 13.2).
+# Full provenance per dataset: data/cards/<dataset_id>.md
 
-datasets: []
+datasets:
+  - dataset_id: much_tte_2025_matrixreasoning
+    tier: A
+    license: "CC BY 4.0"
+    irw_version: "v43.0"
+    fetched: 2026-08-01
+    raw: data/raw/much_tte_2025_matrixreasoning_long.csv   # gitignored, hash below
+    raw_hash: "4c07ac09bac7204a39b567e1c985a84687c450686250a68e2d15fc4346cd6be5"
+    gold: data/gold/much_tte_2025_matrixreasoning_resp.csv
+    gold_hash: "2bb5397992b6ed10eee9a65a2e02a7e7bfcee0b6aeaf6b89e477e0d40c80bfce"
+    transformations:
+      - "irw_long2resp wave-1 filter (longitudinal source; 20 -> 10 items)"
+      - "irw id density threshold 0.1 dropped 1/1244 ids"
+
+  - dataset_id: tma
+    tier: B
+    license: "CC BY 4.0"
+    irw_version: "v43.0"
+    fetched: 2026-08-01
+    raw: data/raw/tma_long.csv   # gitignored, hash below
+    raw_hash: "37b203822f1b57803804b1364db6dde7d6b1a1ea83a81f70126188938aaf4b36"
+    gold: data/gold/tma_resp.csv
+    gold_hash: "b9e6ea87cec496f23262d0e8f58a31cbd00c1036f06b838eb84cdc0181644966"
+    transformations:
+      - "irw_long2resp"
+      - "irw id density threshold 0.1 dropped 11/5410 ids"
+
+  - dataset_id: enem_2019_1mil_lc
+    tier: C
+    license: "CC BY 4.0"
+    irw_version: "v43.0"
+    fetched: null   # metadata-only; fetch deferred to the M4 subsampling plan
+    raw: null
+    raw_hash: null
+    gold: null
+    gold_hash: null
+    transformations: []

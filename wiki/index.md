@@ -12,6 +12,7 @@ Project metadata lives in [`dataimago-spec.yaml`](../dataimago-spec.yaml).
 | [log.md](log.md) | Chronological activity, newest first |
 | [theory/model-ladder.md](theory/model-ladder.md) | Levels 0–5, simplest → most flexible, with acceptance tests |
 | [theory/discrete-copula-cautions.md](theory/discrete-copula-cautions.md) | Why discrete margins forbid naive Sklar arguments; candidate resolutions |
+| [theory/level-1-product-copula-wrapper.md](theory/level-1-product-copula-wrapper.md) | The Level-1 formal spec: independence-copula IRTc ≡ mirt 2PL (claim C0004) |
 | [methods/work-packages.md](methods/work-packages.md) | WP1–WP6: goals, outputs, quality gates |
 | [methods/claim-ledger-protocol.md](methods/claim-ledger-protocol.md) | Claim schema, claim rules, citation-audit questions |
 | [methods/auto-research-loop.md](methods/auto-research-loop.md) | Editable vs frozen surfaces, setup/autonomous/debrief phases, scoring |

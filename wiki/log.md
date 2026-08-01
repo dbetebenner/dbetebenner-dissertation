@@ -1,5 +1,21 @@
 # Activity log — newest first
 
+## 2026-08-01 — M4: held-out prediction machinery landed
+
+- `heldout_logloss()` (irtc `6c0eb00`): marginal log-likelihood of unseen persons
+  at fixed training parameters, per-response log-loss reported — the M4 primary
+  metric, for **both** model classes. Copula path implements the conditional
+  h-functions (bvn, frk, gum, rgum, joe, rjoe; rotations as 180° survivals) over
+  the stored first-stage cutpoints; `fit_copula_1f` now carries its cutpoints.
+- Correctness by self-consistency, enforced in tests forever: on training data at
+  fitted parameters the evaluator reproduces fit_irtc to 1e-8, mirt to 1e-4, and
+  mle1factor to 1e-6 for every supported family — the family sweep is an exact
+  verification of our h-function math against FactorCopula's own likelihood.
+  All green on the first run. Missing responses skipped, never imputed.
+- Next (M4): registered experiments — `experiments/registry.yaml` entries with
+  frozen eval scripts naming this machinery, then the benchmark runs, sensitivity,
+  and the claim audit.
+
 ## 2026-08-01 — M4 opened: ENEM subsampling plan frozen, then executed
 
 - Plan committed **before any fetch** (`3a673bb` — the git history proves the

@@ -1,0 +1,5 @@
+# Dataset manifest — every dataset the pipeline touches, with provenance and
+# hashes (charter WP4). A dataset appears here BEFORE any model sees it.
+# Tiers: A = smoke-test, B = primary benchmark, C = stress-test (charter 13.2).
+
+datasets: []

@@ -1,0 +1,5 @@
+# Split manifest — reproducible train/validation/test definitions (charter WP4).
+# Split level (person vs person-response cell) is declared per split; splits are
+# frozen surfaces during registered experiments and never change once used.
+
+splits: []

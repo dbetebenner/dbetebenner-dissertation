@@ -1,5 +1,20 @@
 # Activity log — newest first
 
+## 2026-08-01 — M3 opened: IRW access route documented, data zones scaffolded
+
+- Access route verified and documented ([data/irw-access.md](data/irw-access.md)):
+  `irw` v1.0.0 installed from GitHub; key API surfaced (`irw_list_tables`,
+  `irw_filter`, `irw_fetch`, `irw_save_bibtex`); **Redivis authentication confirmed
+  required** — unauthenticated calls hang on an interactive flow. Maintainer setup
+  steps written (Redivis account + `REDIVIS_API_TOKEN` in `~/.Renviron`).
+- Data zones scaffolded per WP4: `data/{raw,bronze,silver,gold,manifests,cards}/`,
+  empty `datasets.yaml` + `splits.yaml` manifests, card schema in `data/cards/README.md`;
+  raw/bronze gitignored (manifest-hashed, never committed). Zone `data/raw/` is
+  distinct from the repo-root `raw/` uploads directory — noted in `data/README.md`.
+- **Blocked on:** maintainer Redivis token. Then: tiered selection (A/B/C), three
+  data cards, harmonized formats, fixed splits — and both model classes run on ≥1
+  IRW dataset (M3 done-when).
+
 ## 2026-08-01 — Level 1: the product-copula wrapper (the ladder's first IRTc rung)
 
 - `fit_irtc()` — IRTc's own code path (marginal ML, normal prior, 61-point

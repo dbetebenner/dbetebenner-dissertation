@@ -19,11 +19,11 @@ missingness_rate: 0.0
 scoring_rules: "resp is IRW-scored 0/1; source variables include position and booklet"
 item_group_variables: ["booklet", "position"]
 known_limitations:
-  - "Not yet fetched: card is metadata-only until the M4 subsampling plan fixes n and strata"
+  - "Full table not persisted locally (by plan); derived subsamples enem19lc_bench10k / enem19lc_stress100k are the working artifacts"
   - "Portuguese-language items; construct interpretation requires the ENEM framework"
   - "Operational high-stakes exam: item exposure and booklet design effects are real"
 preprocessing_steps:
-  - "None yet — fetch deferred"
+  - "Stratified-by-booklet SRS per the frozen plan: bench n=10,000 (seed 20260804), stress n=100,000 (seed 20260805); largest-remainder allocation, id-sorted draws; 0 missing in both"
 raw_hash: null
 silver_hash: null
 gold_hash: null

@@ -34,9 +34,43 @@ datasets:
     tier: C
     license: "CC BY 4.0"
     irw_version: "v43.0"
-    fetched: null   # metadata-only; fetch deferred to the M4 subsampling plan
-    raw: null
+    fetched: 2026-08-01   # transiently, per data/enem-subsampling-plan.md (commit 3a673bb)
+    raw: null             # full table not persisted; IRW v43.0 is the source of record
     raw_hash: null
     gold: null
     gold_hash: null
-    transformations: []
+    transformations:
+      - "subsampled per the frozen plan; see derived datasets below"
+
+  - dataset_id: enem19lc_bench10k
+    tier: C-benchmark
+    derived_from: enem_2019_1mil_lc
+    plan: data/enem-subsampling-plan.md
+    license: "CC BY 4.0"
+    irw_version: "v43.0"
+    fetched: 2026-08-01
+    seed: 20260804
+    raw: data/raw/enem19lc_bench10k_long.csv   # gitignored, hash below
+    raw_hash: "258f9e2295120bdca10436e4c6caf51921b10b9d54112a8c9f2b61495ca2ec92"
+    gold: data/gold/enem19lc_bench10k_resp.csv
+    gold_hash: "ebd324b8ba546dd68e21d27faca48f68fc669fca4589ca3bdc40124f1b6afedf"
+    transformations:
+      - "stratified-by-booklet SRS n=10000, largest-remainder allocation, id-sorted draw"
+      - "irw_long2resp; 0 missing"
+
+  - dataset_id: enem19lc_stress100k
+    tier: C-stress
+    derived_from: enem_2019_1mil_lc
+    plan: data/enem-subsampling-plan.md
+    license: "CC BY 4.0"
+    irw_version: "v43.0"
+    fetched: 2026-08-01
+    seed: 20260805
+    raw: data/raw/enem19lc_stress100k_long.csv   # gitignored, hash below
+    raw_hash: "995fa35d7ece153977be06070d46503fee174bdd72b6f4e32f7084dfdf90ec1c"
+    gold: data/gold/enem19lc_stress100k_resp.csv   # gitignored (8.9M), hash below
+    gold_hash: "c0382e393b7584f686b758aa63910f499458da1a279ff0deeb2180299adec97d"
+    transformations:
+      - "stratified-by-booklet SRS n=100000, largest-remainder allocation, id-sorted draw"
+      - "irw_long2resp; 0 missing"
+      - "timing/scalability only - never model-comparison evidence (plan rule)" 

@@ -156,3 +156,6 @@ data/raw/*
 data/bronze/*
 !data/raw/.gitkeep
 !data/bronze/.gitkeep
+
+# Stress-tier gold too large to commit (manifest-hashed, rederivable per plan)
+data/gold/enem19lc_stress100k_resp.csv

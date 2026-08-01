@@ -17,3 +17,12 @@ splits:
     seed: 20260802
     file: data/gold/tma_split.csv
     file_hash: "74c3573255e7f017f404d1e84023b4697dd0819d7fb8a62c80c62e21798d41b5"
+
+  - split_id: enem19lc_bench10k_p80
+    dataset_id: enem19lc_bench10k
+    level: person
+    scheme: "80/20 train/test, sample.int under seed"
+    seed: 20260806
+    file: data/gold/enem19lc_bench10k_split.csv
+    file_hash: "92a512bef706f56b642a1920ce4e90c9d4d1c3be0092360b22fd3afafb47132b"
+

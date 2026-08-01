@@ -1,5 +1,21 @@
 # Activity log — newest first
 
+## 2026-08-01 — M4 opened: ENEM subsampling plan frozen, then executed
+
+- Plan committed **before any fetch** (`3a673bb` — the git history proves the
+  design-before-data ordering): stratified-by-booklet SRS, bench n=10,000
+  (seed 20260804, registered-experiment evidence only) + stress n=100,000
+  (seed 20260805, timing only, never evidence), id-sorted deterministic draws,
+  transient full-table fetch with IRW v43.0 as the source of record, split seed
+  20260806, amendments append-only.
+- Executed (`60a9d64`): 40M rows fetched transiently, both draws complete with
+  0 missing (matching metadata), hashes verified from disk, bench gold + split
+  committed, stress gold + raw longs gitignored and manifest-hashed.
+- M4 remaining: held-out prediction machinery in the irtc package (marginal
+  log-loss for unseen persons, both model classes), registered experiments in
+  `experiments/registry.yaml` with frozen eval scripts BEFORE any comparison
+  run, copula-family sensitivity, claim audit of the tier-A AIC observation.
+
 ## 2026-08-01 — M3 complete: IRW ingestion live; both model classes ran on real data
 
 - Redivis auth verified (scoped read token per the new secret-hygiene discipline);

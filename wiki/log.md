@@ -1,5 +1,20 @@
 # Activity log — newest first
 
+## 2026-08-01 — Level 1: the product-copula wrapper (the ladder's first IRTc rung)
+
+- `fit_irtc()` — IRTc's own code path (marginal ML, normal prior, 61-point
+  quadrature, log-parameterized discriminations), copula fixed to independence.
+  Acceptance test vs the mirt 2PL on seeded data: log-likelihood within 1e-5, item
+  parameters within 1e-4, predicted probabilities within 1.2e-5 — ledgered as C0004.
+- Formal spec: [theory/level-1-product-copula-wrapper.md](theory/level-1-product-copula-wrapper.md)
+  — conventional local-independence IRT is the independence-copula case *by
+  construction* (exact equivalence). Rasch equivalence deliberately not claimed
+  (parameterization mismatch documented). Non-independence copulas refused until the
+  Level-2+ likelihoods.
+- 124 tests green; the deferred M1-optional equivalence deliverable is now closed.
+- Next: M3 (IRW ingestion — blocked on maintainer Redivis auth) or Level-2 IRTc
+  likelihoods beyond the FactorCopula wrapper.
+
 ## 2026-07-31 — M2: existing copula reproduction
 
 - The documented FactorCopula PE one-factor example reproduces in-test (loglik

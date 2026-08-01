@@ -56,3 +56,27 @@ claims:
       Capability claim only (software docs support capability, never statistical
       truth). Continuously re-verified: the reproduction and recovery run as tests
       in tests/testthat/test-copula-1f.R on every CI push.
+
+  - claim_id: C0004
+    claim_text: >-
+      With the copula fixed to independence and 2PL marginals, the IRTc
+      product-copula wrapper (fit_irtc, marginal ML with 61-point normal
+      quadrature) reproduces the mirt 2PL baseline on seeded simulated data
+      (n=1000, J=10): log-likelihood within 1e-5, item parameters within 1e-4,
+      predicted response probabilities within 1.2e-5. Conventional
+      local-independence IRT is the independence-copula special case of IRTc
+      by construction (exact equivalence, charter 4.3).
+    claim_type: established
+    source_ids: []
+    source_quality: user_context
+    scope: implementation
+    risk_level: low
+    verified_by: claude-fable-5-level1
+    verification_date: 2026-08-01
+    notes: >-
+      The Level-1 acceptance test (tests/testthat/test-irtc-level1.R),
+      re-verified on every CI run. Formal spec:
+      wiki/theory/level-1-product-copula-wrapper.md. Scope note: 2PL/binary
+      only; Rasch equivalence deliberately not claimed (mirt's Rasch frees the
+      latent variance - a different parameterization).
+

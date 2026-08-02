@@ -159,3 +159,7 @@ data/bronze/*
 
 # Stress-tier gold too large to commit (manifest-hashed, rederivable per plan)
 data/gold/enem19lc_stress100k_resp.csv
+
+# Knowledge-base site render output (published via Pages artifact, never committed)
+wiki/_site/
+wiki/.quarto/

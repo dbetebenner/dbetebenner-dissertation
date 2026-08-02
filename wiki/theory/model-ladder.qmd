@@ -3,6 +3,21 @@
 Charter §6. Implement simplest → most flexible; never jump to the most complex model.
 Progression between levels is approved by the PI role, not assumed.
 
+```{mermaid}
+flowchart TD
+    L0["Level 0 — Conventional baselines<br/>Rasch · 2PL · 3PL · GRM · MIRT (mirt, TAM)"]
+    L1["Level 1 — Product-copula wrapper<br/>independence copula ≡ baselines (claim C0004)"]
+    L2["Level 2 — One-factor copula IRT<br/>BVN · t · Frank · Gumbel · Joe (FactorCopula)"]
+    L3["Level 3 — Local-dependence IRTc<br/>testlet copulas · vines · residual structures"]
+    L4["Level 4 — Structured multidimensional IRTc<br/>bi-factor · second-order · factor-tree"]
+    L5["Level 5 — Extensions<br/>response time · longitudinal · CAT · DIF · mixtures"]
+    L0 -->|"equivalence gate<br/>(numerical tolerance)"| L1
+    L1 -->|"reproduction + recovery gate"| L2
+    L2 -->|"Q3 residual + fit gate"| L3
+    L3 -->|"vs MIRT baselines gate"| L4
+    L4 -->|"only after 0–4 stable"| L5
+```
+
 | Level | What | Key tools | Gate to pass |
 |---|---|---|---|
 | **0** | Conventional baselines: Rasch/1PL, 2PL, 3PL, GRM, GPCM, MIRT/bi-factor | `mirt`, `TAM` | Reproducible fits; stable model-result schema |

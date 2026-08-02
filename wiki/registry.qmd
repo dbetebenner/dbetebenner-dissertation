@@ -1,0 +1,26 @@
+---
+title: "Experiment registry"
+---
+
+Every experiment registers here **before it runs** — no post-hoc entries.
+Rendered from [`experiments/registry.yaml`](https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/experiments/registry.yaml)
+at publish time; the rules live in the
+[registry protocol](experiments/registry-protocol.md).
+
+```{r}
+#| echo: false
+#| results: asis
+reg <- yaml::read_yaml("../experiments/registry.yaml")$experiments
+if (length(reg) == 0) {
+  cat("*No experiments registered yet. The first registrations arrive with",
+      "M4's benchmark plan — baselines vs copula families on the frozen",
+      "splits, primary metric held-out log-loss.*\n")
+} else {
+  cat("| Run | Question | Dataset | Primary metric | Status |\n|---|---|---|---|---|\n")
+  for (e in reg) {
+    cat(sprintf("| `%s` | %s | `%s` | `%s` | **%s** |\n",
+                e$run_id, e$research_question, e$dataset_id,
+                e$metrics$primary, e$status))
+  }
+}
+```

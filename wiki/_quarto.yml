@@ -1,0 +1,58 @@
+# The knowledge-base site: publishes this repo's llm wiki (maintained
+# markdown + the claim ledger + the experiment registry) to GitHub Pages.
+# Scoped inside wiki/ deliberately -- the repo root is a Next.js app.
+# Neutral identity per the tokens-neutral-sibling ADR (Level-3 property):
+# Noto Sans, ink/stone/paper palette, no dataimago house styling.
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "IRTc — Knowledge Base"
+  search: true
+  page-navigation: true
+  sidebar:
+    style: docked
+    contents:
+      - text: Overview
+        href: overview.md
+      - text: Activity log
+        href: log.md
+      - section: Theory
+        contents:
+          - text: The model ladder
+            href: theory/model-ladder.qmd
+          - text: Discrete-copula cautions
+            href: theory/discrete-copula-cautions.md
+          - text: "Level 1: the product-copula wrapper"
+            href: theory/level-1-product-copula-wrapper.md
+      - section: Methods
+        contents:
+          - text: Work packages
+            href: methods/work-packages.md
+          - text: Claim-ledger protocol
+            href: methods/claim-ledger-protocol.md
+          - text: The auto-research loop
+            href: methods/auto-research-loop.md
+          - text: Milestones
+            href: methods/milestones.md
+      - section: Evidence
+        contents:
+          - text: The claim ledger
+            href: claims.qmd
+          - text: Experiment registry
+            href: registry.qmd
+          - text: Registry protocol
+            href: experiments/registry-protocol.md
+      - section: Data
+        contents:
+          - text: IRW access
+            href: data/irw-access.md
+
+format:
+  html:
+    theme:
+      light: assets/neutral-light.scss
+      dark: assets/neutral-dark.scss
+    toc: true
+    link-external-newwindow: true

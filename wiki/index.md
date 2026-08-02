@@ -1,8 +1,17 @@
 # IRTc knowledge base — index
 
-Seeded at M0 from the research charter, [`raw/background/IRTc.md`](../raw/background/IRTc.md)
-(the authoritative source; these pages summarize and point, they do not replace it).
-Project metadata lives in [`dataimago-spec.yaml`](../dataimago-spec.yaml).
+Seeded at M0 from the research charter (`raw/background/IRTc.md` in the
+[app repo](https://github.com/dbetebenner/dbetebenner-dissertation) — the
+authoritative source; these pages summarize and point, they do not replace it).
+Project metadata lives in
+[`dataimago-spec.yaml`](https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/dataimago-spec.yaml).
+
+**The dissertation elsewhere:**
+[the living application](https://dbetebenner-dissertation.vercel.app/) ·
+[the thesis & methodology site](https://dbetebenner.github.io/irtc/)
+([PDF](https://dbetebenner.github.io/irtc/thesis.pdf) ·
+[R package reference](https://dbetebenner.github.io/irtc/r-package.html)) ·
+[the claim ledger](claims.qmd) · [the experiment registry](registry.qmd)
 
 ## Pages
 
@@ -10,7 +19,7 @@ Project metadata lives in [`dataimago-spec.yaml`](../dataimago-spec.yaml).
 |---|---|
 | [overview.md](overview.md) | Mission, the four parallel tracks, the founding conjecture (a hypothesis, never evidence) |
 | [log.md](log.md) | Chronological activity, newest first |
-| [theory/model-ladder.md](theory/model-ladder.md) | Levels 0–5, simplest → most flexible, with acceptance tests |
+| [theory/model-ladder.qmd](theory/model-ladder.qmd) | Levels 0–5, simplest → most flexible, with acceptance tests |
 | [theory/discrete-copula-cautions.md](theory/discrete-copula-cautions.md) | Why discrete margins forbid naive Sklar arguments; candidate resolutions |
 | [theory/level-1-product-copula-wrapper.md](theory/level-1-product-copula-wrapper.md) | The Level-1 formal spec: independence-copula IRTc ≡ mirt 2PL (claim C0004) |
 | [methods/work-packages.md](methods/work-packages.md) | WP1–WP6: goals, outputs, quality gates |

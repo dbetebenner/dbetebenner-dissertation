@@ -40,6 +40,7 @@ export default function Home() {
        `https://github.com/${githubUser}/${rpkgName}`);
   const thesisPdfRawUrl = `${manuscriptRepoUrl}/raw/main/docs/thesis.pdf`;
   const pagesUrl = isNoR ? null : `https://${githubUser}.github.io/${rpkgName}/`;
+  const knowledgeUrl = `https://${githubUser}.github.io/${spec.metadata.name}/`;
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
@@ -114,6 +115,25 @@ export default function Home() {
               </span>
             </li>
           )}
+          <li>
+            <a
+              className="text-forest-700 underline hover:text-forest-800"
+              href={knowledgeUrl}
+            >
+              Knowledge base
+            </a>{' '}
+            <span className="text-sm text-stone-700">
+              — the project&apos;s living wiki: theory, methods, the{' '}
+              <a className="hover:underline" href={`${knowledgeUrl}claims.html`}>
+                claim ledger
+              </a>{' '}
+              and{' '}
+              <a className="hover:underline" href={`${knowledgeUrl}registry.html`}>
+                experiment registry
+              </a>
+              , republished as the research evolves
+            </span>
+          </li>
         </ul>
       </section>
 

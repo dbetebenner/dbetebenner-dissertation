@@ -111,3 +111,12 @@ experiments:
     seed: 20260806
     status: planned
 
+
+# AMENDMENT 2026-08-02 (append-only): the first execution of
+# exp_2026_08_02_001 returned NaN for baseline_2pl_mirt -- a boundary-
+# probability bug in irtc::heldout_logloss's 2PL path (extreme item
+# discrimination -> plogis exactly 0/1 -> log(0)). Fixed in irtc `323eb20`
+# (clamp mirroring the copula path; regression-tested; self-consistency
+# oracle unaffected). All three experiments run in full against the fixed
+# evaluator; the aborted first execution's artifacts were discarded. The
+# frozen eval SCRIPT is unchanged.

@@ -111,6 +111,90 @@ experiments:
     seed: 20260806
     status: complete
 
+  - run_id: exp_2026_08_03_004
+    research_question: >-
+      With the native irtc Level-2 likelihood (no O(2^J) joint table --
+      the C0006 engine wall removed), does any one-factor copula family
+      (bvn, frk, gum, rgum, joe, rjoe) improve held-out response
+      prediction over the conventional 2PL baseline on tma?
+    dataset_id: tma
+    split_id: tma_p80
+    models:
+      - baseline_2pl_mirt
+      - irtc_native_1f_bvn
+      - irtc_native_1f_frk
+      - irtc_native_1f_gum
+      - irtc_native_1f_rgum
+      - irtc_native_1f_joe
+      - irtc_native_1f_rjoe
+    metrics:
+      primary: heldout_logloss_per_response
+      secondary:
+        - train_aic
+        - runtime_seconds
+        - converged
+    acceptance:
+      min_logloss_gain_per_response: 0.005
+      max_convergence_failure_rate: 0.0
+      require_claim_audit: true
+    preprocessing: "fit on TRAIN complete cases; evaluate on the FULL test fold (evaluator skips missing responses)"
+    quadrature: "nq=61 (2PL marginal path), nq=25 (copula path) -- matching the fitting quadrature"
+    engine_note: >-
+      Native engine validated against FactorCopula::mle1factor at small J
+      before this registration: identical first-stage cutpoints (1e-8),
+      log-likelihood within 1e-5, thetas/taus within 1e-2, all six
+      families (irtc ff02ee3, test-copula-1f-native.R).
+    frozen_files:
+      - experiments/eval/heldout-benchmark-v2.R
+      - data/manifests/datasets.yaml
+      - data/manifests/splits.yaml
+      - data/gold/tma_split.csv
+    editable_files: []
+    seed: 20260802
+    status: planned
+
+  - run_id: exp_2026_08_03_005
+    research_question: >-
+      With the native irtc Level-2 likelihood (no O(2^J) joint table --
+      the C0006 engine wall removed), does any one-factor copula family
+      (bvn, frk, gum, rgum, joe, rjoe) improve held-out response
+      prediction over the conventional 2PL baseline on enem19lc_bench10k?
+    dataset_id: enem19lc_bench10k
+    split_id: enem19lc_bench10k_p80
+    models:
+      - baseline_2pl_mirt
+      - irtc_native_1f_bvn
+      - irtc_native_1f_frk
+      - irtc_native_1f_gum
+      - irtc_native_1f_rgum
+      - irtc_native_1f_joe
+      - irtc_native_1f_rjoe
+    metrics:
+      primary: heldout_logloss_per_response
+      secondary:
+        - train_aic
+        - runtime_seconds
+        - converged
+    acceptance:
+      min_logloss_gain_per_response: 0.005
+      max_convergence_failure_rate: 0.0
+      require_claim_audit: true
+    preprocessing: "fit on TRAIN complete cases; evaluate on the FULL test fold (evaluator skips missing responses)"
+    quadrature: "nq=61 (2PL marginal path), nq=25 (copula path) -- matching the fitting quadrature"
+    engine_note: >-
+      Native engine validated against FactorCopula::mle1factor at small J
+      before this registration: identical first-stage cutpoints (1e-8),
+      log-likelihood within 1e-5, thetas/taus within 1e-2, all six
+      families (irtc ff02ee3, test-copula-1f-native.R).
+    frozen_files:
+      - experiments/eval/heldout-benchmark-v2.R
+      - data/manifests/datasets.yaml
+      - data/manifests/splits.yaml
+      - data/gold/enem19lc_bench10k_split.csv
+    editable_files: []
+    seed: 20260806
+    status: planned
+
 
 # AMENDMENT 2026-08-02 (append-only): the first execution of
 # exp_2026_08_02_001 returned NaN for baseline_2pl_mirt -- a boundary-

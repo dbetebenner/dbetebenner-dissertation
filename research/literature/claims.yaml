@@ -80,3 +80,48 @@ claims:
       only; Rasch equivalence deliberately not claimed (mirt's Rasch frees the
       latent variance - a different parameterization).
 
+  - claim_id: C0005
+    claim_text: >-
+      In pre-registered experiment exp_2026_08_02_001 (matrixreasoning, frozen
+      80/20 person split, held-out marginal log-loss per response), the
+      180-degree-rotated Joe one-factor copula achieved the best held-out score
+      (0.369797) versus the 2PL baseline (0.373756) with half the parameters
+      (10 vs 20); the gain (0.00396/response) fell below the pre-registered
+      acceptance threshold (0.005), so no superiority claim is made. The M3
+      suggestive BVN observation did not survive held-out evaluation (0.374969,
+      worse than the baseline).
+    claim_type: established
+    source_ids: []
+    source_quality: user_context
+    scope: empirical_result
+    risk_level: medium
+    verified_by: claude-fable-5-m4
+    verification_date: 2026-08-02
+    notes: >-
+      Registered before running (registry commit 97d803f); artifacts at
+      experiments/runs/exp_2026_08_02_001/metrics.json with hash-gated data
+      integrity. Psychometric reading of rjoe (lower-tail dependence: joint
+      incorrect responses among low-ability examinees) is a HYPOTHESIS for
+      Level-3 work, not part of this claim.
+
+  - claim_id: C0006
+    claim_text: >-
+      FactorCopula::mle1factor cannot fit one-factor copula models at realistic
+      test lengths: its first stage builds a joint contingency table with
+      O(K^J) cells, overflowing R's 2^31 element limit at J=40 and J=50 binary
+      items (experiments exp_2026_08_02_002/_003; all six families failed
+      identically while 2PL baselines succeeded). J=10 fits work.
+    claim_type: established
+    source_ids: [S0004-factorcopula-cran]
+    source_quality: software_docs
+    scope: implementation
+    risk_level: low
+    verified_by: claude-fable-5-m4
+    verification_date: 2026-08-02
+    notes: >-
+      Capability limitation, reproducible from the registered runs. Motivates
+      the native Level-2 one-factor likelihood: irtc already implements the
+      per-family conditional h-functions (verified to 1e-6 against mle1factor
+      at J=10 in test-heldout.R), so optimization over dependence parameters
+      with per-item empirical cutpoints requires no joint table.
+

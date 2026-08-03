@@ -1,5 +1,30 @@
 # Activity log — newest first
 
+## 2026-08-02 — M4: the first registered benchmark ran — the gates held, twice
+
+- **Registration before execution** (`97d803f`): three experiments — 2PL baseline vs
+  six one-factor copula families on the frozen splits — with the frozen evaluator
+  (`experiments/eval/heldout-benchmark.R`: hash-gated data integrity, no verdicts
+  emitted) and acceptance fixed in advance (gain ≥ 0.005/response, zero
+  convergence failures, claim audit required).
+- **exp_001 (matrixreasoning)**: all 7 models converged. **Rotated-Joe won held-out**
+  (0.369797 vs baseline 0.373756, half the parameters) — but the 0.00396 gain sits
+  under the pre-registered threshold, so **no superiority claim** (C0005). The M3
+  suggestive BVN observation **failed held-out** (0.374969, worse than baseline) —
+  the project's first documented failure case, exactly as the charter intends.
+  rjoe's lower-tail dependence (joint incorrect answers among low-ability
+  examinees) is now a Level-3 hypothesis, not a claim.
+- **exp_002/_003 (tma 50 items, ENEM 40 items)**: baselines fine; **every
+  FactorCopula fit hit an engine wall** — its first stage builds an O(2^J) joint
+  contingency table, overflowing at J≥40 (C0006). The documented failure motivates
+  the native Level-2 likelihood: the h-functions already live in
+  `heldout_logloss` (verified to 1e-6 against the engine), so optimization needs
+  no joint table.
+- One evaluator bug found by the run itself (2PL boundary probabilities → NaN):
+  regression-tested, fixed (irtc `323eb20`), registry amended append-only, clean
+  re-run. Next: the M4 benchmark report + Q3 diagnostics, then the native
+  Level-2 likelihood.
+
 ## 2026-08-01 — M4: held-out prediction machinery landed
 
 - `heldout_logloss()` (irtc `6c0eb00`): marginal log-likelihood of unseen persons

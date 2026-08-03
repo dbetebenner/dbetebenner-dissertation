@@ -37,7 +37,7 @@ experiments:
       - data/gold/much_tte_2025_matrixreasoning_split.csv
     editable_files: []
     seed: 20260801
-    status: planned
+    status: complete
 
   - run_id: exp_2026_08_02_002
     research_question: >-
@@ -73,7 +73,7 @@ experiments:
       - data/gold/tma_split.csv
     editable_files: []
     seed: 20260802
-    status: planned
+    status: complete
 
   - run_id: exp_2026_08_02_003
     research_question: >-
@@ -109,7 +109,7 @@ experiments:
       - data/gold/enem19lc_bench10k_split.csv
     editable_files: []
     seed: 20260806
-    status: planned
+    status: complete
 
 
 # AMENDMENT 2026-08-02 (append-only): the first execution of
@@ -120,3 +120,18 @@ experiments:
 # oracle unaffected). All three experiments run in full against the fixed
 # evaluator; the aborted first execution's artifacts were discarded. The
 # frozen eval SCRIPT is unchanged.
+
+# RESULTS NOTE 2026-08-02 (append-only): all three runs executed against the
+# fixed evaluator; artifacts in experiments/runs/<run_id>/metrics.json.
+# - exp_..._001 (matrixreasoning): all 7 models converged. Best held-out
+#   log-loss/response: irtc_1f_rjoe 0.369797 vs baseline_2pl_mirt 0.373756
+#   (gain 0.00396 < the pre-registered 0.005) -> NO superiority claim
+#   permitted. The M3 suggestive BVN observation did not survive held-out
+#   (0.374969, worse than baseline) -- first documented failure case.
+# - exp_..._002 (tma, 50 items) and _003 (enem19lc_bench10k, 40 items):
+#   baselines fine; ALL FactorCopula fits failed -- the engine builds a
+#   joint contingency table (O(2^J) cells), overflowing at J>=40
+#   ("table with >= 2^31 elements"). Engine scalability wall, ledgered as
+#   C0006; motivates the native Level-2 likelihood (we already own the
+#   h-functions via heldout_logloss).
+

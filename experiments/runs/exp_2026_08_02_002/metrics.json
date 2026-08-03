@@ -1,0 +1,48 @@
+{
+  "run_id": "exp_2026_08_02_002",
+  "dataset_id": "tma",
+  "split_id": "tma_p80",
+  "gold_hash": "b9e6ea87cec496f23262d0e8f58a31cbd00c1036f06b838eb84cdc0181644966",
+  "split_hash": "74c3573255e7f017f404d1e84023b4697dd0819d7fb8a62c80c62e21798d41b5",
+  "eval_script": "experiments/eval/heldout-benchmark.R",
+  "results": [
+    {
+      "model_id": "baseline_2pl_mirt",
+      "model": "2pl",
+      "engine": "mirt 1.46.1",
+      "converged": true,
+      "n_parameters": 100,
+      "train_loglik": -94177.028758363,
+      "train_aic": 188554.057516726,
+      "runtime_seconds": 0.9,
+      "heldout_total_loglik": -28066.9792100069,
+      "heldout_n_responses": 53579,
+      "heldout_logloss_per_response": 0.52384290878902,
+      "n_warnings": 0
+    },
+    {
+      "model_id": "irtc_1f_bvn",
+      "error": "attempt to make a table with >= 2^31 elements"
+    },
+    {
+      "model_id": "irtc_1f_frk",
+      "error": "attempt to make a table with >= 2^31 elements"
+    },
+    {
+      "model_id": "irtc_1f_gum",
+      "error": "attempt to make a table with >= 2^31 elements"
+    },
+    {
+      "model_id": "irtc_1f_rgum",
+      "error": "attempt to make a table with >= 2^31 elements"
+    },
+    {
+      "model_id": "irtc_1f_joe",
+      "error": "attempt to make a table with >= 2^31 elements"
+    },
+    {
+      "model_id": "irtc_1f_rjoe",
+      "error": "attempt to make a table with >= 2^31 elements"
+    }
+  ]
+}

@@ -1,5 +1,19 @@
 # Activity log — newest first
 
+## 2026-08-03 — Writing spec + AI contribution statement retrofit
+
+- The dataimago technical writing spec landed as `writing/STYLE.md` (+ the
+  3-mode `writing/README.md`), vendored from dataimago-design@aade34e per the
+  technical-writing-spec ADR (dataimago-design#123/#124). Prose surfaces in
+  this repo are now written under it.
+- The thesis gained an **AI Contribution and Authorship Statement** appendix
+  (irtc `fb50c1a`) — drafted factually from this project's record (charter-
+  driven ladder, CI oracles, pre-registered experiments, typed claim ledger)
+  with the ICMJE-consistent authorship position.
+- Pending the spec-schema chain (dataimago-ai#172 / dataimago#17 / npm alpha):
+  explicit `thesis.writingStyle` + `graphics: { engine: pstricks }` blocks in
+  `dataimago-spec.yaml`.
+
 ## 2026-08-03 — M4 complete: the native likelihood removed the wall; the tier-A signal did not generalize
 
 - **Benchmark report published** ([experiments/benchmark-m4.qmd](../experiments/benchmark-m4.qmd)):

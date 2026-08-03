@@ -125,3 +125,55 @@ claims:
       at J=10 in test-heldout.R), so optimization over dependence parameters
       with per-item empirical cutpoints requires no joint table.
 
+
+  - claim_id: C0007
+    claim_text: >-
+      irtc's native Level-2 one-factor copula likelihood
+      (fit_copula_1f(engine = "irtc"), irtc ff02ee3) removes the C0006
+      scalability wall: the person-wise marginal likelihood is assembled
+      from per-item copula h-functions with no joint contingency table, and
+      fits J=50 (tma) and J=40 (enem19lc_bench10k) in 8-183 seconds per
+      family where every FactorCopula fit had failed. At small J it
+      reproduces FactorCopula::mle1factor: identical first-stage cutpoints
+      (1e-8), log-likelihood within 1e-5, dependence parameters and
+      Kendall's taus within 1e-2, for all six supported families.
+    claim_type: established
+    source_ids: []
+    source_quality: user_context
+    scope: implementation
+    risk_level: low
+    verified_by: claude-fable-5-m4
+    verification_date: 2026-08-03
+    notes: >-
+      Reproduction oracle enforced in CI forever
+      (test-copula-1f-native.R); scaling demonstrated in registered runs
+      exp_2026_08_03_004/_005. C0006 remains true of the wrapped engine;
+      this claim is about irtc's own code path.
+
+  - claim_id: C0008
+    claim_text: >-
+      In pre-registered experiments exp_2026_08_03_004 (tma, 50 items) and
+      exp_2026_08_03_005 (enem19lc_bench10k, 40 items) with the native
+      Level-2 engine, no one-factor copula family cleared the
+      pre-registered acceptance gates. tma: all 7 models converged; the
+      2PL baseline achieved the best held-out log-loss (0.523843), with
+      the best copula (bvn, 0.524016, half the parameters) trailing by
+      0.00017. enem: gum edged the baseline by 0.000217 (0.571430 vs
+      0.571647), far below the 0.005 threshold, and rjoe failed to
+      converge, violating the zero-convergence-failure criterion. rjoe's
+      exp_2026_08_02_001 held-out advantage did not generalize to the
+      longer instruments.
+    claim_type: established
+    source_ids: []
+    source_quality: user_context
+    scope: empirical_result
+    risk_level: medium
+    verified_by: claude-fable-5-m4
+    verification_date: 2026-08-03
+    notes: >-
+      Registered before running (registry commit aea2a6d); artifacts at
+      experiments/runs/exp_2026_08_03_004/metrics.json and _005/. On short
+      instruments exchangeable one-factor copulas with half the parameters
+      approximately tie the 2PL held-out; family ranking is
+      dataset-dependent. Both readings are Level-3 research inputs, not
+      claims of superiority in either direction.

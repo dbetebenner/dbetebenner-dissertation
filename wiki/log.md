@@ -1,5 +1,32 @@
 # Activity log — newest first
 
+## 2026-08-03 — M4 complete: the native likelihood removed the wall; the tier-A signal did not generalize
+
+- **Benchmark report published** ([experiments/benchmark-m4.qmd](../experiments/benchmark-m4.qmd)):
+  rendered entirely from committed run artifacts, with exploratory Q3
+  diagnostics (mean Q3 −0.106 ≈ the −1/(J−1) reference, but 11/45 pairs
+  beyond |0.2|, extreme −0.349 — real local-dependence structure the 2PL
+  leaves behind; a Level-3 input).
+- **Native Level-2 likelihood** (irtc `ff02ee3`): `fit_copula_1f(engine =
+  "irtc")` — person-wise marginal likelihood from the 1e-6-verified
+  h-functions, no O(2^J) joint table, nlminb with an item-local gradient
+  (a full gradient costs ~2 objective evaluations regardless of J).
+  Reproduction oracle in CI: identical cutpoints (1e-8), loglik to 1e-5,
+  thetas/taus to 1e-2 vs `mle1factor`, all six families. A J=45 fit — where
+  the wrapped engine cannot allocate — converges in seconds.
+- **exp_2026_08_03_004/_005** (registered `aea2a6d` before running, v2
+  frozen evaluator = v1 + the native model mapping): all 12 copula fits at
+  J=50/40 completed. The gates held a third and fourth time — tma: the 2PL
+  baseline predicted best outright (BVN's better train AIC again failed
+  held-out); ENEM: gum's 0.0002 edge was two orders under the gate AND rjoe
+  failed convergence (zero-failure criterion violated; documented, not
+  hidden). rjoe's 10-item advantage did not generalize — family ranking is
+  dataset-dependent (C0008). Native-engine capability ledgered as C0007.
+- **M4 is complete**: five registered runs, no superiority claims anywhere,
+  three distinct failure modes documented. Next: M5 (the auto-research
+  loop) and/or the Level-3 local-dependence structures the Q3 pattern
+  motivates.
+
 ## 2026-08-02 — M4: the first registered benchmark ran — the gates held, twice
 
 - **Registration before execution** (`97d803f`): three experiments — 2PL baseline vs

@@ -151,7 +151,7 @@ experiments:
       - data/gold/tma_split.csv
     editable_files: []
     seed: 20260802
-    status: planned
+    status: complete
 
   - run_id: exp_2026_08_03_005
     research_question: >-
@@ -193,7 +193,7 @@ experiments:
       - data/gold/enem19lc_bench10k_split.csv
     editable_files: []
     seed: 20260806
-    status: planned
+    status: complete
 
 
 # AMENDMENT 2026-08-02 (append-only): the first execution of
@@ -219,3 +219,22 @@ experiments:
 #   C0006; motivates the native Level-2 likelihood (we already own the
 #   h-functions via heldout_logloss).
 
+# RESULTS NOTE 2026-08-03 (append-only): exp_2026_08_03_004/_005 executed with
+# the v2 evaluator; artifacts in experiments/runs/<run_id>/metrics.json.
+# The C0006 engine wall is gone: all 12 native copula fits at J=50/J=40
+# completed (8-183s each) where every FactorCopula fit had failed.
+# - exp_..._004 (tma, 50 items): all 7 models converged. The 2PL BASELINE
+#   achieved the best held-out log-loss (0.523843); the best copula
+#   (irtc_native_1f_bvn, 0.524016, half the parameters) trailed by 0.00017.
+#   No copula gain -> no claim. BVN's better train AIC (188484.6 vs
+#   188554.1) did not survive held-out -- the AIC-vs-held-out divergence
+#   pattern from M3/exp_001 repeats.
+# - exp_..._005 (enem19lc_bench10k, 40 items): irtc_native_1f_gum edged the
+#   baseline by 0.000217 (0.571430 vs 0.571647) -- far below the 0.005
+#   gate -- AND irtc_native_1f_rjoe failed to converge, violating the
+#   pre-registered zero-convergence-failure criterion. No claim permitted
+#   on both grounds; the convergence failure is documented, not hidden.
+# - Cross-experiment: rjoe's exp_001 (10-item) held-out advantage did NOT
+#   generalize to the longer instruments (worst/failed there). Family
+#   ranking is dataset-dependent -- recorded as a Level-3 research input,
+#   ledgered as C0008.

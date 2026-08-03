@@ -37,11 +37,19 @@ script itself. Acceptance was fixed in advance:
 - **Zero convergence failures** among the compared models.
 - **Claim audit required** before any ledger entry.
 
-| Run | Dataset (tier) | Persons × items |
-|---|---|---|
-| `exp_2026_08_02_001` | `much_tte_2025_matrixreasoning` (A) | 1,243 × 10, binary |
-| `exp_2026_08_02_002` | `tma` (B) | 5,399 × 50, binary |
-| `exp_2026_08_02_003` | `enem19lc_bench10k` (C-benchmark) | 10,000 × 40, binary |
+| Run | Dataset (tier) | Persons × items | Copula engine |
+|---|---|---|---|
+| `exp_2026_08_02_001` | `much_tte_2025_matrixreasoning` (A) | 1,243 × 10, binary | FactorCopula (wrapped) |
+| `exp_2026_08_02_002` | `tma` (B) | 5,399 × 50, binary | FactorCopula (wrapped) |
+| `exp_2026_08_02_003` | `enem19lc_bench10k` (C-benchmark) | 10,000 × 40, binary | FactorCopula (wrapped) |
+| `exp_2026_08_03_004` | `tma` (B) | 5,399 × 50, binary | irtc (native) |
+| `exp_2026_08_03_005` | `enem19lc_bench10k` (C-benchmark) | 10,000 × 40, binary | irtc (native) |
+
+The `_004`/`_005` reruns were registered (commit `aea2a6d`, again before
+execution) after the native Level-2 likelihood landed in `irtc` (`ff02ee3`)
+and was validated against the wrapped engine at small J — same datasets,
+splits, seeds, metrics, and gates as `_002`/`_003`, under a v2 frozen
+evaluator that adds only the native-engine model mapping.
 
 ## Results
 
@@ -134,6 +142,30 @@ exactly that quantity from per-item h-functions, verified to 1e-6 against
 the engine's own likelihood), which motivates the native Level-2 likelihood
 in the `irtc` package.
 
+## Reading `exp_2026_08_03_004` / `_005`: the wall removed, the gates held again
+
+The native likelihood did what it was built to do: **all twelve copula fits
+at J = 50 and J = 40 completed** (8–183 seconds each) where every wrapped
+fit had failed. The scientific outcome is a clean negative:
+
+- **tma (50 items):** all seven models converged, and the **2PL baseline
+  predicted best**. The nearest copula (BVN, half the parameters) trailed
+  by just 0.00017 per response — and notably, BVN's *better training AIC*
+  did not survive held-out evaluation, repeating the AIC-vs-held-out
+  divergence first seen at M3.
+- **ENEM (40 items):** Gumbel edged the baseline by 0.000217 — two orders
+  of magnitude under the 0.005 gate — and **rjoe failed to converge**,
+  violating the pre-registered zero-convergence-failure criterion on its
+  own. No claim is permitted on either ground; the convergence failure is
+  documented, not hidden.
+- **Across experiments:** rjoe's advantage on the 10-item matrix-reasoning
+  test **did not generalize** — on the longer instruments it was among the
+  worst performers or failed outright. Family ranking is
+  dataset-dependent. On realistic test lengths, exchangeable one-factor
+  copulas with half the parameters approximately *tie* the 2PL held out —
+  a parsimony observation, recorded as a Level-3 research input (ledger
+  C0008), not a claim in either direction.
+
 ## Exploratory Q3 diagnostics (unregistered)
 
 ::: {.callout-note}
@@ -190,17 +222,20 @@ bifactor model, is Level-3 work and future registered experiments.
 
 | Claim | Type | Outcome |
 |---|---|---|
-| [C0005](../claims.qmd) | registered result | rjoe best held-out, gain below threshold — **no superiority claim permitted**; BVN held-out failure documented |
-| [C0006](../claims.qmd) | implementation limitation | FactorCopula O(2^J) joint-table wall at J ≥ 40 — documented, motivates the native likelihood |
+| [C0005](../claims.qmd) | registered result | rjoe best held-out on tier A, gain below threshold — **no superiority claim permitted**; BVN held-out failure documented |
+| [C0006](../claims.qmd) | implementation limitation | FactorCopula O(2^J) joint-table wall at J ≥ 40 — documented; removed by the native engine for irtc's own code path |
+| [C0007](../claims.qmd) | implementation capability | native Level-2 likelihood reproduces `mle1factor` at small J and fits J = 40–50 in seconds-to-minutes; oracle enforced in CI |
+| [C0008](../claims.qmd) | registered result | native-engine reruns: no family cleared the gates; baseline best on tma; rjoe convergence failure on ENEM documented; tier-A ranking did not generalize |
 
 ## Limitations and what comes next
 
-- Tier A is a short (10-item) instrument; the realistic-length comparisons
-  are exactly the ones the engine wall blocked. The native Level-2
-  likelihood removes that wall; re-registered experiments on `tma` and
-  `enem19lc_bench10k` follow it.
 - All comparisons here are binary-data, single-parameter, exchangeable-family
   fits; ordinal data (GRM-class margins) and mixed families per item are
   untested territory.
+- The one-factor copula's dependence is *exchangeable through a single
+  factor*. The Q3 structure above suggests localized pairwise dependence —
+  the natural next model class (Level 3 of the ladder: vine/local-dependence
+  structures) targets exactly what these experiments show the one-factor
+  model cannot separate from the 2PL.
 - Q3 diagnostics used EAP point abilities; residual methods that integrate
   over the ability posterior would be sharper.

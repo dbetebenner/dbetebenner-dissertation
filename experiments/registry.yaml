@@ -2,4 +2,112 @@
 # Every experiment is registered here BEFORE it runs; no post-hoc entries.
 # Run artifacts land under experiments/runs/<run_id>/.
 
-experiments: []
+experiments:
+  - run_id: exp_2026_08_02_001
+    research_question: >-
+      Does any one-factor copula family (bvn, frk, gum, rgum, joe, rjoe)
+      improve held-out response prediction over the conventional 2PL baseline
+      on much_tte_2025_matrixreasoning?
+    dataset_id: much_tte_2025_matrixreasoning
+    split_id: much_tte_2025_matrixreasoning_p80
+    models:
+      - baseline_2pl_mirt
+      - irtc_1f_bvn
+      - irtc_1f_frk
+      - irtc_1f_gum
+      - irtc_1f_rgum
+      - irtc_1f_joe
+      - irtc_1f_rjoe
+    metrics:
+      primary: heldout_logloss_per_response
+      secondary:
+        - train_aic
+        - runtime_seconds
+        - converged
+    acceptance:
+      min_logloss_gain_per_response: 0.005
+      max_convergence_failure_rate: 0.0
+      require_claim_audit: true
+    preprocessing: "fit on TRAIN complete cases; evaluate on the FULL test fold (evaluator skips missing responses)"
+    quadrature: "nq=61 (2PL marginal path), nq=25 (copula path) -- matching the fitting quadrature"
+    frozen_files:
+      - experiments/eval/heldout-benchmark.R
+      - data/manifests/datasets.yaml
+      - data/manifests/splits.yaml
+      - data/gold/much_tte_2025_matrixreasoning_split.csv
+    editable_files: []
+    seed: 20260801
+    status: planned
+
+  - run_id: exp_2026_08_02_002
+    research_question: >-
+      Does any one-factor copula family (bvn, frk, gum, rgum, joe, rjoe)
+      improve held-out response prediction over the conventional 2PL baseline
+      on tma?
+    dataset_id: tma
+    split_id: tma_p80
+    models:
+      - baseline_2pl_mirt
+      - irtc_1f_bvn
+      - irtc_1f_frk
+      - irtc_1f_gum
+      - irtc_1f_rgum
+      - irtc_1f_joe
+      - irtc_1f_rjoe
+    metrics:
+      primary: heldout_logloss_per_response
+      secondary:
+        - train_aic
+        - runtime_seconds
+        - converged
+    acceptance:
+      min_logloss_gain_per_response: 0.005
+      max_convergence_failure_rate: 0.0
+      require_claim_audit: true
+    preprocessing: "fit on TRAIN complete cases; evaluate on the FULL test fold (evaluator skips missing responses)"
+    quadrature: "nq=61 (2PL marginal path), nq=25 (copula path) -- matching the fitting quadrature"
+    frozen_files:
+      - experiments/eval/heldout-benchmark.R
+      - data/manifests/datasets.yaml
+      - data/manifests/splits.yaml
+      - data/gold/tma_split.csv
+    editable_files: []
+    seed: 20260802
+    status: planned
+
+  - run_id: exp_2026_08_02_003
+    research_question: >-
+      Does any one-factor copula family (bvn, frk, gum, rgum, joe, rjoe)
+      improve held-out response prediction over the conventional 2PL baseline
+      on enem19lc_bench10k?
+    dataset_id: enem19lc_bench10k
+    split_id: enem19lc_bench10k_p80
+    models:
+      - baseline_2pl_mirt
+      - irtc_1f_bvn
+      - irtc_1f_frk
+      - irtc_1f_gum
+      - irtc_1f_rgum
+      - irtc_1f_joe
+      - irtc_1f_rjoe
+    metrics:
+      primary: heldout_logloss_per_response
+      secondary:
+        - train_aic
+        - runtime_seconds
+        - converged
+    acceptance:
+      min_logloss_gain_per_response: 0.005
+      max_convergence_failure_rate: 0.0
+      require_claim_audit: true
+    preprocessing: "fit on TRAIN complete cases; evaluate on the FULL test fold (evaluator skips missing responses)"
+    quadrature: "nq=61 (2PL marginal path), nq=25 (copula path) -- matching the fitting quadrature"
+    frozen_files:
+      - experiments/eval/heldout-benchmark.R
+      - data/manifests/datasets.yaml
+      - data/manifests/splits.yaml
+      - data/gold/enem19lc_bench10k_split.csv
+    editable_files: []
+    seed: 20260806
+    status: planned
+

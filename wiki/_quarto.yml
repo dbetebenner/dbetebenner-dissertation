@@ -42,6 +42,8 @@ website:
             href: claims.qmd
           - text: Experiment registry
             href: registry.qmd
+          - text: M4 benchmark report
+            href: experiments/benchmark-m4.qmd
           - text: Registry protocol
             href: experiments/registry-protocol.md
       - section: Data

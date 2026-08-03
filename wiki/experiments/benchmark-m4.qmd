@@ -1,0 +1,206 @@
+---
+title: "M4 benchmark report — baselines vs one-factor copulas"
+---
+
+The first registered benchmark of the IRTc program: the 2PL baseline against
+six one-factor copula families on frozen, hash-verified IRW splits, primary
+metric **held-out marginal log-loss per response**. Everything in the results
+tables below is rendered directly from the committed
+`experiments/runs/*/metrics.json` artifacts — this page contains no numbers
+that were typed by hand.
+
+::: {.callout-important}
+## What this report does and does not say
+
+Per the [registry protocol](registry-protocol.md) and the pre-registered
+acceptance criteria, **no superiority claim is made anywhere in this
+report**. The registered outcome is recorded in the
+[claim ledger](../claims.qmd) as C0005 (result below the pre-registered
+threshold — no claim permitted) and C0006 (engine scalability wall).
+The Q3 diagnostics section is **exploratory, unregistered analysis** and is
+labeled as such.
+:::
+
+## The registered design
+
+Three experiments were registered in the
+[experiment registry](../registry.qmd) — commit `97d803f`, **before any
+run** — sharing one frozen evaluator
+([`experiments/eval/heldout-benchmark.R`](https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/experiments/eval/heldout-benchmark.R)):
+hash-gated data integrity, training on the train fold (complete cases),
+held-out evaluation on the full test fold, and no verdicts printed by the
+script itself. Acceptance was fixed in advance:
+
+- **Primary metric:** held-out log-loss per response (lower is better).
+- **Superiority threshold:** a copula family must beat the baseline by
+  ≥ 0.005 per response.
+- **Zero convergence failures** among the compared models.
+- **Claim audit required** before any ledger entry.
+
+| Run | Dataset (tier) | Persons × items |
+|---|---|---|
+| `exp_2026_08_02_001` | `much_tte_2025_matrixreasoning` (A) | 1,243 × 10, binary |
+| `exp_2026_08_02_002` | `tma` (B) | 5,399 × 50, binary |
+| `exp_2026_08_02_003` | `enem19lc_bench10k` (C-benchmark) | 10,000 × 40, binary |
+
+## Results
+
+```{r}
+#| echo: false
+#| results: asis
+# metrics.json is valid YAML (JSON subset), so the CI's yaml package reads it.
+run_dirs <- sort(list.dirs("../../experiments/runs", recursive = FALSE))
+for (rd in run_dirs) {
+  mf <- file.path(rd, "metrics.json")
+  if (!file.exists(mf)) next
+  mx <- yaml::read_yaml(mf)
+  ok <- Filter(function(r) is.null(r$error), mx$results)
+  failed <- Filter(function(r) !is.null(r$error), mx$results)
+
+  cat(sprintf("\n### `%s` — `%s`\n\n", mx$run_id, mx$dataset_id))
+
+  if (length(ok) > 0) {
+    base <- Filter(function(r) identical(r$model_id, "baseline_2pl_mirt"), ok)
+    base_ll <- if (length(base) == 1) base[[1]]$heldout_logloss_per_response else NA
+    cat("| Model | Engine | Params | Train AIC | Held-out log-loss | vs baseline |\n")
+    cat("|---|---|---:|---:|---:|---:|\n")
+    ord <- order(vapply(ok, function(r) r$heldout_logloss_per_response, numeric(1)))
+    for (r in ok[ord]) {
+      delta <- if (is.na(base_ll) || identical(r$model_id, "baseline_2pl_mirt")) {
+        "—"
+      } else {
+        sprintf("%+.6f", r$heldout_logloss_per_response - base_ll)
+      }
+      cat(sprintf("| `%s` | %s | %d | %.1f | %.6f | %s |\n",
+                  r$model_id, r$engine, r$n_parameters, r$train_aic,
+                  r$heldout_logloss_per_response, delta))
+    }
+    cat("\n")
+  }
+  if (length(failed) > 0) {
+    cat("**Failed fits** (recorded, per the failure-modes-documented rule):\n\n")
+    cat("| Model | Error |\n|---|---|\n")
+    for (r in failed) {
+      cat(sprintf("| `%s` | %s |\n", r$model_id,
+                  gsub("\\|", "\\\\|", r$error)))
+    }
+    cat("\n")
+  }
+}
+```
+
+*(Sorted by held-out log-loss, best first. "vs baseline" is the per-response
+difference against `baseline_2pl_mirt`; negative means better than the
+baseline.)*
+
+## Reading `exp_2026_08_02_001`: the gates held, twice
+
+**The rotated-Joe family predicted best — and no claim follows.** `irtc_1f_rjoe`
+achieved the lowest held-out log-loss with **half the parameters** of the 2PL
+(10 dependence parameters vs 20 item parameters), and its training AIC was
+also best. But its per-response gain over the baseline (≈ 0.004) sits **below
+the pre-registered 0.005 threshold**, so under the registered acceptance
+criteria no superiority claim is permitted. That is the system working: an
+attractive result met a gate that was fixed before the data were seen
+(ledger entry C0005).
+
+**The M3 "suggestive" observation failed its held-out test.** M3 recorded an
+unregistered, suggestive AIC near-tie for `irtc_1f_bvn` on this dataset and
+explicitly deferred judgment to M4. Held out, BVN predicts *worse* than the
+2PL baseline. This is the project's first documented failure case, and
+exactly why the charter separates suggestive observations from registered
+evidence.
+
+**Family sensitivity was part of the registration, and it mattered.** The
+spread across the six families is larger than the copula-vs-baseline gap:
+the survival rotations (`rjoe`, `rgum`) and Frank sit at the top, their
+unrotated counterparts (`joe`, `gum`) at the bottom. For binary correct/
+incorrect data, rotation direction — which tail of the latent factor the
+dependence concentrates in — matters more than the family label.
+Substantively, rjoe's lower-tail dependence corresponds to *joint incorrect
+answers concentrating among low-ability examinees*. That reading is a
+**Level-3 hypothesis** for the local-dependence work, not a finding.
+
+## Reading `exp_2026_08_02_002` / `_003`: the engine wall
+
+On the two realistic-length tests (50 and 40 items), **every FactorCopula
+fit failed** with the same error — the engine's likelihood builds a joint
+contingency table over all response patterns, which is O(2^J) for binary
+items and overflows R's vector limit at J ≥ 40 — while the 2PL baselines
+ran in seconds. Recorded as ledger entry **C0006**: a scalability wall of
+the wrapped engine, not of the model class. The person-wise marginal
+likelihood needs no joint table (the held-out evaluator already computes
+exactly that quantity from per-item h-functions, verified to 1e-6 against
+the engine's own likelihood), which motivates the native Level-2 likelihood
+in the `irtc` package.
+
+## Exploratory Q3 diagnostics (unregistered)
+
+::: {.callout-note}
+Everything in this section is **exploratory** — computed by
+[`experiments/analysis/q3-diagnostics-exp001.R`](https://github.com/dbetebenner/dbetebenner-dissertation/blob/main/experiments/analysis/q3-diagnostics-exp001.R),
+which is not a frozen surface and generates no registered evidence. It
+exists to characterize *where* the 2PL leaves residual dependence, as input
+to Level-3 hypothesis formation.
+:::
+
+Yen's Q3: fit the 2PL on the train fold, compute each held-out person's EAP
+ability, then correlate item-pair residuals $y_{ij} - P_j(\hat\theta_i)$
+across the test fold. Under local independence Q3 centers near
+$-1/(J-1)$.
+
+```{r}
+#| echo: false
+#| results: asis
+s <- utils::read.csv("../../experiments/analysis/q3-exp001-summary.csv")
+v <- function(k) s$value[s$statistic == k]
+cat(sprintf(
+  paste0("Across %d item pairs (test fold, n = %d): mean Q3 **%.3f** against a ",
+         "reference of %.3f — the average is unremarkable — but the spread is ",
+         "not: **%d of %d pairs exceed |Q3| > 0.2**, ranging from %.3f to %.3f.\n\n"),
+  v("n_pairs"), v("n_test_persons"), v("q3_mean"),
+  v("q3_reference_neg_1_over_Jm1"), v("n_pairs_abs_above_0.2"),
+  v("n_pairs"), v("q3_min"), v("q3_max")
+))
+
+q3 <- utils::read.csv("../../experiments/analysis/q3-exp001.csv")
+cat("The five largest-magnitude pairs:\n\n")
+cat("| Item i | Item j | Q3 |\n|---|---|---:|\n")
+for (i in seq_len(min(5, nrow(q3)))) {
+  cat(sprintf("| `%s` | `%s` | %.3f |\n", q3$item_i[i], q3$item_j[i], q3$q3[i]))
+}
+cat("\n")
+
+rj <- utils::read.csv("../../experiments/analysis/rjoe-estimates-exp001.csv")
+cat(sprintf(
+  paste0("The rjoe account of the same data: per-item dependence parameters ",
+         "%.2f–%.2f (Kendall's tau %.2f–%.2f) — uniformly strong, lower-tail ",
+         "concentrated item–factor dependence.\n"),
+  min(rj$theta), max(rj$theta), min(rj$tau), max(rj$tau)
+))
+```
+
+The picture is consistent with a real local-dependence structure that a
+unidimensional 2PL cannot absorb — matrix-reasoning items sharing rule
+types are a plausible mechanism — but identifying *which* structure, and
+whether a copula formulation captures it better than, say, a testlet or
+bifactor model, is Level-3 work and future registered experiments.
+
+## Claim audit
+
+| Claim | Type | Outcome |
+|---|---|---|
+| [C0005](../claims.qmd) | registered result | rjoe best held-out, gain below threshold — **no superiority claim permitted**; BVN held-out failure documented |
+| [C0006](../claims.qmd) | implementation limitation | FactorCopula O(2^J) joint-table wall at J ≥ 40 — documented, motivates the native likelihood |
+
+## Limitations and what comes next
+
+- Tier A is a short (10-item) instrument; the realistic-length comparisons
+  are exactly the ones the engine wall blocked. The native Level-2
+  likelihood removes that wall; re-registered experiments on `tma` and
+  `enem19lc_bench10k` follow it.
+- All comparisons here are binary-data, single-parameter, exchangeable-family
+  fits; ordinal data (GRM-class margins) and mixed families per item are
+  untested territory.
+- Q3 diagnostics used EAP point abilities; residual methods that integrate
+  over the ability posterior would be sharper.

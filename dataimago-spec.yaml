@@ -132,6 +132,11 @@ vertical:
         durationMonths: 0
         reason: ""
       coauthors: []
+      # technical-writing-spec ADR: prose written under the shipped dataimago
+      # spec at writing/STYLE.md (see writing/README.md for the 3 modes).
+      writingStyle:
+        mode: shipped
+        path: writing/STYLE.md
     context:
       researchDocuments:
         - filename: irw-behavior-research-methods-2025.pdf
@@ -232,6 +237,12 @@ vertical:
         link: ""
       dua: []
     funding: []
+    # technical-writing-spec ADR: maintainer preference — PSTricks for thesis
+    # figures (a knowing PDF-first choice: LaTeX-native figures don't reach
+    # HTML surfaces until the LaTeX->SVG pipeline exists; use R engines for
+    # figures that must appear on the knowledge site).
+    graphics:
+      engine: pstricks
 features:
   quartoBuild: true
   thesisPdf: true

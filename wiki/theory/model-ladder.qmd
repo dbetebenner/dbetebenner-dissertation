@@ -4,7 +4,11 @@ Charter §6. Implement simplest → most flexible; never jump to the most comple
 Progression between levels is approved by the PI role, not assumed.
 
 ```{mermaid}
+%%| label: fig-model-ladder
+%%| fig-cap: "The model ladder, Levels 0–5. Each level must pass its gate before the next begins; the table below gives every level and gate in full."
 flowchart TD
+    accTitle: The model ladder, Levels 0 to 5
+    accDescr: Six levels in one upward sequence, each joined to the next by a gate. Level 0, conventional baselines (Rasch, 2PL, 3PL, GRM, MIRT), passes an equivalence gate at numerical tolerance to Level 1, the product-copula wrapper. Level 1 passes a reproduction and recovery gate to Level 2, one-factor copula IRT. Level 2 passes a Q3 residual and fit gate to Level 3, local-dependence IRTc. Level 3 passes a gate against MIRT baselines to Level 4, structured multidimensional IRTc. Level 4 leads to Level 5, extensions, only after Levels 0 to 4 are stable.
     L0["Level 0 — Conventional baselines<br/>Rasch · 2PL · 3PL · GRM · MIRT (mirt, TAM)"]
     L1["Level 1 — Product-copula wrapper<br/>independence copula ≡ baselines (claim C0004)"]
     L2["Level 2 — One-factor copula IRT<br/>BVN · t · Frank · Gumbel · Joe (FactorCopula)"]

@@ -17,6 +17,13 @@ interface SpecMetadata {
   source: { rPackage: { name: string; submoduleUrl?: string } | null };
 }
 
+// Every link carries the same affordance: always underlined, in a colour the
+// neutral preset defines. (`forest` is the dataimago house palette and is
+// absent from @dataimago/css-neutral, so `text-forest-*` generated no CSS and
+// links fell back to the surrounding text colour -- wi-20260905-at-landing-link-affordance.)
+const linkClass =
+  'text-ink-700 underline underline-offset-2 hover:text-ink-900 hover:decoration-2';
+
 export default function Home() {
   const spec = load(
     readFileSync(resolve(process.cwd(), 'dataimago-spec.yaml'), 'utf-8'),
@@ -44,10 +51,10 @@ export default function Home() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
-      <p className="font-mono text-xs uppercase tracking-wider text-stone-500">
+      <p className="font-mono text-xs uppercase tracking-wider text-stone-700">
         Dissertation in progress
       </p>
-      <h1 className="mt-2 font-display text-4xl font-medium text-ink sm:text-5xl">
+      <h1 className="mt-2 font-display text-4xl font-medium text-ink-900 sm:text-5xl">
         {workingTitle}
       </h1>
       <p className="mt-3 text-lg text-stone-700">
@@ -55,11 +62,11 @@ export default function Home() {
       </p>
 
       <section className="mt-12">
-        <h2 className="font-display text-2xl text-ink">Chapters</h2>
+        <h2 className="font-display text-2xl text-ink-900">Chapters</h2>
         <ol className="mt-4 space-y-2 text-stone-900">
           {chapters.map((ch, i) => (
             <li key={ch.id} className="flex items-baseline gap-3">
-              <span className="font-mono text-sm text-stone-500">
+              <span className="font-mono text-sm text-stone-700">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <span>{ch.title}</span>
@@ -78,11 +85,11 @@ export default function Home() {
       </section>
 
       <section className="mt-12">
-        <h2 className="font-display text-2xl text-ink">Read it</h2>
+        <h2 className="font-display text-2xl text-ink-900">Read it</h2>
         <ul className="mt-3 space-y-2 text-stone-900">
           <li>
             <a
-              className="text-forest-700 underline hover:text-forest-800"
+              className={linkClass}
               href={pagesUrl ? `${pagesUrl}thesis.pdf` : thesisPdfRawUrl}
             >
               Thesis PDF
@@ -95,20 +102,20 @@ export default function Home() {
                   {' '}or <code className="font-mono">R/</code>
                 </>
               )}
-              {' '}(<a className="hover:underline" href={thesisPdfRawUrl}>direct download</a>)
+              {' '}(<a className={linkClass} href={thesisPdfRawUrl}>direct download</a>)
             </span>
           </li>
           {pagesUrl && (
             <li>
               <a
-                className="text-forest-700 underline hover:text-forest-800"
+                className={linkClass}
                 href={pagesUrl}
               >
                 Methodology &amp; package site
               </a>{' '}
               <span className="text-sm text-stone-700">
                 — the thesis as an HTML book plus the{' '}
-                <a className="hover:underline" href={`${pagesUrl}r-package.html`}>
+                <a className={linkClass} href={`${pagesUrl}r-package.html`}>
                   R package reference
                 </a>
                 , published to GitHub Pages on every push
@@ -117,18 +124,18 @@ export default function Home() {
           )}
           <li>
             <a
-              className="text-forest-700 underline hover:text-forest-800"
+              className={linkClass}
               href={knowledgeUrl}
             >
               Knowledge base
             </a>{' '}
             <span className="text-sm text-stone-700">
               — the project&apos;s living wiki: theory, methods, the{' '}
-              <a className="hover:underline" href={`${knowledgeUrl}claims.html`}>
+              <a className={linkClass} href={`${knowledgeUrl}claims.html`}>
                 claim ledger
               </a>{' '}
               and{' '}
-              <a className="hover:underline" href={`${knowledgeUrl}registry.html`}>
+              <a className={linkClass} href={`${knowledgeUrl}registry.html`}>
                 experiment registry
               </a>
               , republished as the research evolves
@@ -137,9 +144,9 @@ export default function Home() {
         </ul>
       </section>
 
-      <footer className="mt-16 border-t border-stone-200 pt-6 text-xs text-stone-500">
+      <footer className="mt-16 border-t border-stone-200 pt-6 text-xs text-stone-700">
         Provisioned via{' '}
-        <a className="text-forest-700 hover:underline" href="https://dissertation.ai">
+        <a className={linkClass} href="https://dissertation.ai">
           dissertation.ai
         </a>
         . Source of truth for project metadata: <code>dataimago-spec.yaml</code>.
